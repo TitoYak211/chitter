@@ -16,10 +16,12 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = 'secret!'
 socketio = SocketIO(app)
 
+
 # check for user
 @app.before_request
 def before_req():
    g.user = session.get('username')
+
 
 @socketio.on('connect')
 def connect():
