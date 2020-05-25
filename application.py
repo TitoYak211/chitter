@@ -58,7 +58,6 @@ def connect():
    
    if not channels.get('global'):
       create_channel('global')
-      #print('created global channel anew...')
 
    emit('get channel name')
 
@@ -67,7 +66,6 @@ def connect():
 def logout():
    session.pop('username', None)
    g.pop('user', None)
-   #leave_channel({'channel': session['current_channel']})
   
 
 @socketio.on('receive channel name')
@@ -84,8 +82,6 @@ def receive_channel_name(data):
 
 @socketio.on('new message')
 def new_message(data):
-    #print(data['message'])
-    
     timestamp = datetime.datetime.now().strftime('%H:%M:%S')
     msg = {
       'username': session['username'],
@@ -96,7 +92,7 @@ def new_message(data):
     
     add_msg(session['current_channel'], msg)
     
-    recreate_lists() # так ведь?..
+    recreate_lists()
 
 
 @socketio.on('new channel')
@@ -114,46 +110,32 @@ def join_channel(data):
    if newchannel != session['current_channel']:
 
       username = session['username']
+
       session['current_channel'] = newchannel
-      #print(f'user {username} attempting to join channel {newchannel}...')
-      #channels[channel]['users'].append(session['username'])
+   
       join_room(newchannel)
       
       msg = message_from_server(f'user {username} joined channel')
       add_msg(newchannel, msg)
       
       recreate_lists()
-      
-      #print(f'user {username} joined channel {newchannel}!')
-   
-   #else:
-      #print('staying on the current channel')
 
 
 @socketio.on('leave channel')
 def leave_channel(data):
-
-   #username = session['username']
    channel = data['channel']
-   #msg = message_from_server(f'user {username} left channel')
-   #add_msg(channel, msg)
+
    leave_room(channel)
-   #channels[session['current_channel']]['users'].pop(session['username'])
-   #print(f'left room {channel}.')
 
 
 @socketio.on('disconnect')
 def user_disconnected():
-
    channel = session.get('current_channel')
-   # кажется в этом причина "левых" сообщений user left
+
    if channel:
       leave_channel({'channel': channel})
    if session.get('username'):
       users.remove(session['username'])
-
-
-### helper functions ###
 
 
 def add_msg(channel, message):
@@ -164,7 +146,6 @@ def add_msg(channel, message):
 
    if len(channels[channel]['messages']) > msg_capacity:
       channels[channel]['messages'] = channels[channel]['messages'][-msg_capacity:]
-      #print('truncated message list!') 
 
 
 def create_channel(name):
@@ -178,7 +159,6 @@ def create_channel(name):
       return False
 
 
-#'refresher' function to keep everything up to date
 def recreate_lists():
    channel_list = list(channels.keys())
    messages = channels[session['current_channel']]['messages']
@@ -189,8 +169,6 @@ def recreate_lists():
       'messages': messages,
       'users': users
       })
-
-   #print(f'initting lists: channels - {channel_list} & messages {len(messages)}')
 
 
 def message_from_server(text):
@@ -205,8 +183,4 @@ def message_from_server(text):
 
 
 if __name__ == "__main__":
-   #socketio.run(app, host='0.0.0.0', port=8080, debug=False)
    socketio.run(app)
-   
-   
-    
