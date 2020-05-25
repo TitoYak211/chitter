@@ -23,6 +23,15 @@ def before_req():
    g.user = session.get('username')
 
 
+# Log user in
+@app.route("/", methods=['GET', 'POST'])
+def index():
+   if g.user:
+      return render_template('index.html')
+   
+   return render_template('login.html')
+   
+
 @socketio.on('connect')
 def connect():
    username = session['username']
