@@ -10,6 +10,12 @@ users = []
 
 # Channels object
 channels = {}
+
+# Application initialization
+app = Flask(__name__)
+app.config["SECRET_KEY"] = 'secret!'
+socketio = SocketIO(app)
+
 @socketio.on('connect')
 def connect():
    username = session['username']
