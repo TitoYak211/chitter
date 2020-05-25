@@ -32,6 +32,24 @@ def index():
    return render_template('login.html')
    
 
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+   if request.method == 'POST':
+
+      username = request.form['username']
+
+      session['username'] = username
+
+      session['color'] = "#%06x" % random.randint(0, 0xFFFFFF)
+
+      users.append(username)
+
+      return redirect(url_for('index'))
+   
+   return render_template('login.html')
+# TODO: check if username is not taken
+
+
 @socketio.on('connect')
 def connect():
    username = session['username']
