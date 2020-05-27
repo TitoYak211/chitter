@@ -13,3 +13,9 @@ html {
     box-sizing: border-box;
 }
 
+body {
+    min-height: 100vh;
+    padding: 3rem;
+    height: 100%;
+}
+
