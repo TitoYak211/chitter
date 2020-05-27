@@ -124,3 +124,16 @@ body {
     transform: translateX(3px);
 }
 
+.chat_view_messages {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 7rem 0;
+}
+
+.chat_view_form-container {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 0 8rem;
+}
+
