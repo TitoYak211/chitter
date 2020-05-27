@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="chat_view">
+    <nav class="chat_view_nav">
+        <h4 class="chat_view_heading">Channels</h4>
+        <ul id="channels" class="chat_item">
+
+        </ul>
+        <div> 
+            <a href="#" id="create-channel"><small>create new channel</small></a>
+        </div>
+        <h4 class="chat_view_heading">Users</h4>
+        <ul id="users" class="chat_item">
+
+        </ul>
+        <div id="change-username-container"> 
+            <a href="#" id="change-username"><small>change username</small></a>
+        </div>
+    </nav>
+    <div class="chat_view_messages">
+        <div class="chat_view_form-container">
+            <div class="row" id="messages-container">
+                <ul id="messages">
+        
+                </ul>
+            </div>
+            <div class="row w-100" id="message-form-container">
+                <form class="form-inline w-100">
+                        <input type="text" class="form-control col-auto mr-3" id="m" placeholder="type message here..." autofocus>
+                        <button type="submit" class="btn btn-outline-info mr-0" id="send">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
