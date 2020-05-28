@@ -148,3 +148,16 @@ body {
   padding-bottom: 3rem;
   font-weight: 550;
 }
+
+/* Buttons */
+.btn {
+  border-radius: 10rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: #ff7730;
+  color: #fff;
+  padding: 0.5rem 1rem !important;
+  font-size: 1.2rem !important;
+  float: right;
+  margin-right: 2rem;
+}
