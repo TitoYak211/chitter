@@ -164,7 +164,7 @@ body {
 /* Buttons */
 .btn {
   border-radius: 10rem;
-  text-transform: uppercase;
+  text-transform: capitalize;
   text-decoration: none;
   background-color: #f2f2f2;
   color: #777;
