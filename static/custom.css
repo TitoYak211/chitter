@@ -183,7 +183,8 @@ body {
     border-radius: 5px;
 }
 
-#messages {
+#messages li {
     list-style: none;
     background-color: #f2f2f2;
+    margin-top: 1rem;
 }
