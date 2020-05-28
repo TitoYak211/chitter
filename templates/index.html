@@ -2,19 +2,23 @@
 {% block content %}
 <div class="chat_view">
     <nav class="chat_view_nav">
-        <h4 class="chat_view_heading">Channels</h4>
-        <ul id="channels" class="chat_item">
+        <div>
+            <h4 class="chat_view_heading">Channels</h4>
+            <ul id="channels" class="chat_item">
 
-        </ul>
-        <div> 
-            <button class="btn" id="create-channel">create new channel</button>
+            </ul>
+            <div> 
+                <button class="btn" id="create-channel">create new channel</button>
+            </div>
         </div>
-        <h4 class="chat_view_heading">Users</h4>
-        <ul id="users" class="chat_item">
+        <div class="user_box">
+            <h4 class="chat_view_heading">Users</h4>
+            <ul id="users" class="chat_item">
 
-        </ul>
-        <div id="change-username-container"> 
-            <button class="btn" id="change-username">change username</button>
+            </ul>
+            <div id="change-username-container"> 
+                <button class="btn" id="change-username">change username</button>
+            </div>
         </div>
     </nav>
     <div class="chat_view_messages">
