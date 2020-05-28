@@ -173,5 +173,12 @@ body {
 }
 
 #m {
-    width: 90%
+    width: 88%
+}
+
+.btn_send {
+    padding: 0.5rem 1rem !important;
+    background-color: #28b487;
+    color: #fff;
+    border-radius: 5px;
 }
