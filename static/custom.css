@@ -124,6 +124,10 @@ body {
     transform: translateX(3px);
 }
 
+.user_box {
+    margin-top: 5.5rem;
+}
+
 .chat_view_messages {
     -webkit-box-flex: 1;
     -ms-flex: 1;
