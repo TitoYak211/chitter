@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const appendMessage =  (list, msg) => {
         const li = document.createElement('li');
-        li.innerHTML = `<span class="timestamp">${msg.timestamp}</span>  <span style="color:${msg.color}; font-weight:bold">${msg.username}</span>: ${msg.message}`
+        li.innerHTML = `<span>${msg.timestamp}</span>  <span style="color:${msg.color}; font-weight:bold">${msg.username}</span>: ${msg.message}`
         list.append(li);
         scrollMessageContainerToBottom();
     }
