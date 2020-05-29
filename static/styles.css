@@ -39,7 +39,7 @@ body {
     z-index: 100;
 }
 
-.header div {
+.header_nav {
     padding: 2.5rem 0rem;
     color: #fff;
     font-size: 2rem;
