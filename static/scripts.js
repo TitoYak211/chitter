@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const createChannelBtn = document.querySelector('#create-channel');
     const changeUsernameBtn = document.querySelector('#change-username');
     
-    const socket = io.connect('https://'+ document.domain + ':' + location.port);
+    const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
     const appendMessage =  (list, msg) => {
         const li = document.createElement('li');
