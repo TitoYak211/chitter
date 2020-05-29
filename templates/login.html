@@ -3,14 +3,13 @@
 {% block content %}
 
 <div class="form">
-    <div class="row h-100 d-flex justify-content-center align-items-center">
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <input class="form-control" type="text" name="username" placeholder="Enter username" autofocus>
-            </div>
-            <button class="btn btn-secondary" type="submit">Login</button>
-        </form>
-    </div>
+    <h2 class="heading_secondary">Be Connected Everywhere You Go!</h2>
+    <form action="/login" method="POST">
+        <div class="form-group">
+            <input class="form-control" type="text" name="username" placeholder="Enter username" autofocus>
+        </div>
+        <button class="btn btn-secondary" type="submit">Login</button>
+    </form>
 </div>
 
 {% endblock %}
