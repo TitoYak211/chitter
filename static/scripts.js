@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const getChannelFromPrompt = () => {
-        const channel = prompt('enter new channel name:');
+        const channel = prompt('Enter new channel name:');
         return channel;
     }
 
