@@ -189,7 +189,7 @@ body {
 
 .btn_send {
     padding: 0.5rem 1rem !important;
-    background-color: #28b487;
+    background-image: linear-gradient(to right bottom, #7dd56f, #28b487);
     color: #fff;
     border-radius: 5px;
 }
