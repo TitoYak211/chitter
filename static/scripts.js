@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     const recreateChannelList = channels => {
-        console.log('recreating channel list');
         channelList.innerHTML = '';
         channels.forEach(channel => {
             appendChannel(channelList, channel);
