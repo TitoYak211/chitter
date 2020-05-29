@@ -47,8 +47,6 @@ def login():
       return redirect(url_for('index'))
    
    return render_template('login.html')
-# TODO: check if username is not taken
-
 
 @socketio.on('connect')
 def connect():
