@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-
     const appendChannel = (list, channel) => {
         const li = document.createElement('li');
         let isActiveLink = '';
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
         li.innerHTML = `<a href='#' class="link-channel ${isActiveLink}">${channel}</a>`;
         list.append(li);
     }
-
 
     const recreateChannelList = channels => {
         channelList.innerHTML = '';
@@ -146,9 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     socket.on('disconnect', () => {
-        console.log('really disconnected');
         localStorage.setItem('current_channel', currentChannel);
-        console.log('saved channel to local storage');
     });
 
     socket.on('reconnect',  () => {
