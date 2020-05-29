@@ -173,7 +173,7 @@ body {
   margin: 1rem 4rem;
 }
 
-.btn {
+.btn_login {
     border-radius: 10rem;
     text-transform: capitalize;
     text-decoration: none;
