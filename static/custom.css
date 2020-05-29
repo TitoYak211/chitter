@@ -226,3 +226,10 @@ body {
 .form_group:not(:last-child) {
     margin-bottom: 2.5rem;
 }
+
+.form_label {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
