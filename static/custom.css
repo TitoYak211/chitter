@@ -222,3 +222,7 @@ body {
     padding: 5rem 7rem;
     border-radius: 5px;
 }
+
+.form_group:not(:last-child) {
+    margin-bottom: 2.5rem;
+}
