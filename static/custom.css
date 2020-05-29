@@ -37,15 +37,14 @@ body {
     height: 8rem;
     position: relative;
     z-index: 100;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+}
+
+.header div {
+    padding: 2.5rem 0rem;
+    color: #fff;
+    font-size: 2rem;
+    text-transform: capitalize;
+    text-align: center;
 }
 
 /* chat box */
