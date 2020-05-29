@@ -47,6 +47,12 @@ body {
     text-align: center;
 }
 
+.header_nav p:hover {
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+  text-shadow: 0 0.7rem 1rem #000000;
+}
+
 /* chat box */
 .chat_view {
     background-color: #fff;
