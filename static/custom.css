@@ -173,6 +173,17 @@ body {
   margin: 1rem 4rem;
 }
 
+.btn {
+    border-radius: 10rem;
+    text-transform: capitalize;
+    text-decoration: none;
+    background-image: linear-gradient(to right bottom, #7dd56f, #28b487);
+    color: #fff;
+    padding: 0.5rem 1rem !important;
+    font-size: 1.2rem !important;
+    margin: 1rem 4rem;
+}
+
 #m {
     width: 88%
 }
