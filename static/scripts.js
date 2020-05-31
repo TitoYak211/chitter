@@ -143,9 +143,9 @@ document.addEventListener('DOMContentLoaded', function () {
         socket.emit('receive channel name', {'channel': currentChannel});
     });
 
-    socket.on('disconnect', () => {
-        localStorage.setItem('current_channel', currentChannel);
-    });
+    // socket.on('disconnect', () => {
+    //     localStorage.setItem('current_channel', currentChannel);
+    // });
 
     socket.on('reconnect',  () => {
         console.log('successfully reconnected!');      
