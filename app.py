@@ -27,7 +27,17 @@ def before_req():
 @app.route("/", methods=['GET', 'POST'])
 def index():
    if g.user:
-      return render_template('index.html')
+         return render_template('index.html')
+
+   else:
+         username = request.form.get('username')
+
+         for user in users:
+               if user == username:
+                     return f"Oh uh 😔 😭...This {username} has been taken"
+                     
+         if username == None:
+               return "A username is required!!"
    
    return render_template('login.html')
    
