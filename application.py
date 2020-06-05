@@ -3,13 +3,13 @@ import datetime
 import random
 import re
 
-from database import db_session
 from werkzeug import generate_password_hash, check_password_hash
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from flask import Flask, render_template, request, session, redirect, url_for
 
 # Local modules
 from models import User, Channel, Message
+from database import db_session
 
 # Initialize application
 app = Flask(__name__)
