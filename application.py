@@ -167,19 +167,19 @@ def signup():
         # Validate username
         if not re.search(r'^[A-Za-z0-9_-]+$', username):
             error = 'Oh uh, username must only contains: alphabets, numbers, underscore and/or hyphen'
-            return render_template('signup.html', error=error)
+            return render_template('signup.html', error = error)
 
-        if db_session.query(User).filter_by(username = request.form.get("username")).all() == []:
+        if db_session.query(User).filter_by(username = username).all() == []:
             if password == confirm_password:
-                new_user = User(username=request.form.get("username"), hash=generate_password_hash(request.form.get("password")))
+                new_user = User(username = username, hash = generate_password_hash(password))
 
-                session['username'] = request.form.get("username")
+                session['username'] = username
 
                 db_session.add(new_user)
 
                 db_session.commit()
 
-                session['userid'] = db_session.query(User).filter_by(username=username).one().id
+                session['userid'] = db_session.query(User).filter_by(username = username).one().id
                 
                 session['username'] = username
 
@@ -188,11 +188,11 @@ def signup():
             else:
                 error = 'Oh uh, passwords do not match'
 
-                return render_template('signup.html', error=error)
+                return render_template('signup.html', error = error)
         else:
             error = 'Oh uh, this username is taken'
 
-            return render_template('signup.html', error=error)
+            return render_template('signup.html', error = error)
 
 @app.route("/logout")
 def logout():
