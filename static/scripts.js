@@ -147,9 +147,9 @@ document.addEventListener('DOMContentLoaded', function () {
     //     localStorage.setItem('current_channel', currentChannel);
     // });
 
-    socket.on('reconnect',  () => {
-        console.log('successfully reconnected!');      
-    });
+    // socket.on('reconnect',  () => {
+    //     console.log('successfully reconnected!');      
+    // });
 
     socket.on('recreate lists', data => {
         recreateChannelList(data['channels']);
