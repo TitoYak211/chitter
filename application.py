@@ -228,7 +228,7 @@ def on_join(data):
 
     data['message'] = ': joined the room'
 
-    emit('join room', data, room=room, broadcast=True)
+    emit('join room', data, room = room, broadcast = True)
 
 # Leaving a chatroom
 @socketio.on('leave')
@@ -238,7 +238,7 @@ def on_leave(data):
 
     data['message'] = ': has left the room'
 
-    emit('leave room', data, room=room, broadcast=True)
+    emit('leave room', data, room = room, broadcast = True)
 
     leave_room(room)
 
