@@ -204,19 +204,19 @@ def logout():
 
 # Disconnection
 @app.teardown_appcontext
-def shutdown_session(exception=None):
+def shutdown_session(exception = None):
     db_session.remove()
 
 # SocketIO
 @socketio.on('submit post')
 def post(data):
-    new_post = Message(user_id=session.get('userid'), channel=data['room'], message=data['message'])
+    new_post = Message(user_id = session.get('userid'), channel = data['room'], message = data['message'])
 
     db_session.add(new_post)
 
     db_session.commit()
 
-    emit('announce post', data, room=data['room'], broadcast=True)
+    emit('announce post', data, room=data['room'], broadcast = True)
 
 # Joining a chatroom
 @socketio.on('join')
