@@ -37,9 +37,7 @@ def index():
                      return f"Oh uh 😔 😭...This {username} has been taken"
                      
          if username == None:
-               return "A username is required!!"
-   
-   return render_template('login.html')
+               return render_template('login.html')
    
 
 @app.route("/login", methods=['GET', 'POST'])
