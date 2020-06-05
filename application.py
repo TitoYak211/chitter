@@ -6,7 +6,7 @@ import re
 from database import db_session
 from werkzeug import generate_password_hash, check_password_hash
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
-from flask import Flask, render_template, request, session, redirect, url_for, Session
+from flask import Flask, render_template, request, session, redirect, url_for
 
 # Local modules
 from models import User, Channel, Message
@@ -237,10 +237,8 @@ def on_leave(data):
     data['message'] = ': has left the room'
 
     emit('leave room', data, room=room, broadcast=True)
-    
+
     leave_room(room)
-
-
 
     # session['color'] = "#%06x" % random.randint(0, 0xFFFFFF)
     # timestamp = datetime.datetime.now().strftime('%H:%M:%S')
