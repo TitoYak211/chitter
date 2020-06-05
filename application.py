@@ -139,6 +139,8 @@ def login():
             session['username'] = request.form.get("username")
 
             session['userid'] = db_session.query(User).filter_by(username=username).one().id
+
+            session['color'] = "#%06x" % random.randint(0, 0xFFFFFF)
             
             return redirect(url_for('index'))
 
