@@ -118,27 +118,27 @@ def login():
         # Login authentication
         if username == '':
             error = 'Please enter a username'
-            return render_template('login.html', error=error)
+            return render_template('login.html', error = error)
 
         if password == '':
             error = ' Please enter a password'
-            return render_template('login.html', error=error)
+            return render_template('login.html', error = error)
 
         try:
-            user = db_session.query(User).filter_by(username=username).one()
+            user = db_session.query(User).filter_by(username = username).one()
             
         except:
             error = 'Oh uh, this username is taken'
-            return render_template('login.html', error=error)
+            return render_template('login.html', error = error)
 
         if check_password_hash(user.hash, password) == False:
             error = 'Oh uh, incorrect password'
-            return render_template('login.html', error=error)
+            return render_template('login.html', error = error)
 
         else:
             session['username'] = username
 
-            session['userid'] = db_session.query(User).filter_by(username=username).one().id
+            session['userid'] = db_session.query(User).filter_by(username = username).one().id
 
             session['color'] = "#%06x" % random.randint(0, 0xFFFFFF)
             
