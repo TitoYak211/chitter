@@ -136,7 +136,7 @@ def login():
             return render_template('login.html', error=error)
 
         else:
-            session['username'] = request.form.get("username")
+            session['username'] = username
 
             session['userid'] = db_session.query(User).filter_by(username=username).one().id
 
