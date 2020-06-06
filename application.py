@@ -241,6 +241,4 @@ def on_leave(data):
     emit('leave room', data, room = room, broadcast = True)
 
     leave_room(room)
-
-    # session['color'] = "#%06x" % random.randint(0, 0xFFFFFF)
     # timestamp = datetime.datetime.now().strftime('%H:%M:%S')
