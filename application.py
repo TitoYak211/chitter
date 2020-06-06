@@ -13,20 +13,20 @@ from database import db_session
 
 # Initialize application
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 @app.before_request
 def before_request():
     session.permanent = True
 
-    if request.url.startswith("http"):
-        url = request.url.replace("http", "https", 1)
+    if request.url.startswith('http'):
+        url = request.url.replace('http", "https', 1)
         code = 301
         return redirect(url, code = code)
 
 # DB connection
-if not os.environ.get("DATABASE_URL"):
-    raise RuntimeError("Oh uh, DATABASE_URL not set")
+if not os.environ.get('DATABASE_URL'):
+    raise RuntimeError('Oh uh, DATABASE_URL not set')
 
 # SocketIO
 socketio = SocketIO(app)
@@ -36,51 +36,51 @@ channels = []
 for channel in db_session.query(Channel).all():
     channels.append(channel.channel)
 
-@app.route("/")
+@app.route('/')
 def index():
     # If no user
-    if not session.get("username"):
-        return redirect(url_for("signup"))
+    if not session.get('username'):
+        return redirect(url_for('signup'))
 
     # If user
     else:
         # If repeated user
         if session.get('current_channel'):
-            return redirect(url_for("display_channel", channel=session.get('current_channel')))
+            return redirect(url_for('display_channel', channel=session.get('current_channel')))
 
         # Otherwise global channel
         else:
-            return redirect(url_for("display_channel", channel = channels[0]))
+            return redirect(url_for('display_channel', channel = channels[0]))
 
 # Chatrooms
-@app.route("/<channel>", methods=["GET", "POST"])
+@app.route('/<channel>', methods=['GET', 'POST'])
 def display_channel(channel):
     # GET request
-    if request.method == "GET":
-        if not session.get("userid"):
-            return redirect(url_for("index"))
+    if request.method == 'GET':
+        if not session.get('userid'):
+            return redirect(url_for('index'))
 
         # Get mesages in the current channel
         messages = db_session.query(Message).filter_by(channel = channel).all()
 
         session['current_channel'] = channel
         
-        return render_template("main.html", messages = messages, channels = channels)
+        return render_template('main.html', messages = messages, channels = channels)
 
     # POST request
     else:
         error = None
         
         # Get users channel name input
-        channel_name = request.form.get("channel-name")
+        channel_name = request.form.get('channel-name')
 
         if ' ' in channel_name:
-            error = "Oh uh, please provide a channel name"
-            return render_template("main.html", error = error, channels = channels)
+            error = 'Oh uh, please provide a channel name'
+            return render_template('main.html', error = error, channels = channels)
 
         # Store channel
         try:
-            new_channel = Channel(channel = channel_name, created_by=session.get("userid"))
+            new_channel = Channel(channel = channel_name, created_by=session.get('userid'))
 
             db_session.add(new_channel)
 
@@ -89,22 +89,22 @@ def display_channel(channel):
             channels.append(channel_name)
 
             # Direct user to chatroom
-            return redirect(url_for("display_channel", channel = channel_name))
+            return redirect(url_for('display_channel', channel = channel_name))
 
         # Channel exists
         except:
-            error = "Oh uh, this channel exists"
-            return render_template("main.html", error = error, channels = channels)
+            error = 'Oh uh, this channel exists'
+            return render_template('main.html', error = error, channels = channels)
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     # GET request
     if request.method == 'GET':
-        if not session.get("username"):
-            return render_template("login.html")
+        if not session.get('username'):
+            return render_template('login.html')
 
         else:
-            return redirect(url_for("index"))
+            return redirect(url_for('index'))
         
     # POST request
     else:
@@ -121,7 +121,7 @@ def login():
             return render_template('login.html', error = error)
 
         if password == '':
-            error = ' Please enter a password'
+            error = 'Please enter a password'
             return render_template('login.html', error = error)
 
         try:
@@ -144,17 +144,17 @@ def login():
             
             return redirect(url_for('index'))
 
-@app.route("/signup", methods=["GET", "POST"])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     error = None
 
     # GET request
     if request.method == 'GET':
-        if not session.get("username"):
-            return render_template("signup.html")
+        if not session.get('username'):
+            return render_template('signup.html')
 
         else:
-            return redirect(url_for("index"))
+            return redirect(url_for('index'))
 
     # POST request
     else:
@@ -183,7 +183,7 @@ def signup():
                 
                 session['username'] = username
 
-                return redirect(url_for("index"))
+                return redirect(url_for('index'))
 
             else:
                 error = 'Oh uh, passwords do not match'
@@ -194,7 +194,7 @@ def signup():
 
             return render_template('signup.html', error = error)
 
-@app.route("/logout")
+@app.route('/logout')
 def logout():
     session.pop('username')
 
