@@ -63,7 +63,7 @@ def connect():
 @socketio.on('logout')
 def logout():
    session.pop('username', None)
-   
+
    g.pop('user', None)
   
 
@@ -113,10 +113,13 @@ def join_channel(data):
       username = session['username']
 
       session['current_channel'] = newchannel
+
+      channels[channel]['users'].append(session['username'])
    
       join_room(newchannel)
       
       message = message_from_server(f'user {username} joined {channel}')
+      
       add_message(newchannel, message)
       
       recreate_lists()
