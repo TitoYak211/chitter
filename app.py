@@ -136,14 +136,16 @@ def user_disconnected():
       users.remove(session['username'])
 
 
-def add_msg(channel, message):
+# Add a message to a channel
+def add_message(channel, message):
    
-   msg_capacity = 100
+   message_capacity = 100
 
    channels[channel]['messages'].append(message)
 
-   if len(channels[channel]['messages']) > msg_capacity:
+   if len(channels[channel]['messages']) > message_capacity:
       channels[channel]['messages'] = channels[channel]['messages'][-msg_capacity:]
+
 
 # Create new channel
 def create_channel(name):
@@ -154,7 +156,7 @@ def create_channel(name):
    else:
       message = message_from_server(f'{name} channel exists!')
 
-      add_msg(session['current_channel'], message)
+      add_message(session['current_channel'], message)
 
       return False
 
