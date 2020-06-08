@@ -20,7 +20,7 @@ def before_request():
     session.permanent = True
 
     if request.url.startswith('http'):
-        url = request.url.replace('http", "https', 1)
+        url = request.url.replace('http', 'https', 1)
         code = 301
         return redirect(url, code = code)
 
