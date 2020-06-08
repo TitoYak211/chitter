@@ -145,15 +145,17 @@ def add_msg(channel, message):
    if len(channels[channel]['messages']) > msg_capacity:
       channels[channel]['messages'] = channels[channel]['messages'][-msg_capacity:]
 
-
+# Create new channel
 def create_channel(name):
-   
    if name not in list(channels.keys()):
       channels[name] = {'messages': [], 'users': []}
+
       return True   
    else:
-      msg = message_from_server(f'channel {name} already exists!')
-      add_msg(session['current_channel'], msg)
+      message = message_from_server(f'{name} channel exists!')
+
+      add_msg(session['current_channel'], message)
+
       return False
 
 
