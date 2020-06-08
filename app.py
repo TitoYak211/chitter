@@ -241,5 +241,5 @@ def message_from_server(text):
    return message
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
    socketio.run(app)
