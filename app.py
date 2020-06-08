@@ -121,7 +121,13 @@ def join_channel(data):
 
 @socketio.on('leave channel')
 def leave_channel(data):
+   username = session['username']
+
    channel = data['channel']
+
+   message = message_from_server(f'User {username} left {channel}')
+
+   add_message(channel, message)
 
    leave_room(channel)
 
@@ -132,7 +138,7 @@ def user_disconnected():
 
    if channel:
       leave_channel({'channel': channel})
-      
+
    if session.get('username'):
       users.remove(session['username'])
 
