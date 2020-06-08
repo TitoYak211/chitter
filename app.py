@@ -102,7 +102,6 @@ def create_channel_on_event(data):
 
 @socketio.on('join channel')
 def join_channel(data):
-
    newchannel = data['channel']
 
    if newchannel != session['current_channel']:
@@ -113,8 +112,8 @@ def join_channel(data):
    
       join_room(newchannel)
       
-      msg = message_from_server(f'user {username} joined channel')
-      add_msg(newchannel, msg)
+      message = message_from_server(f'user {username} joined {channel}')
+      add_message(newchannel, message)
       
       recreate_lists()
 
