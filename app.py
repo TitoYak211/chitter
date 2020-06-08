@@ -63,6 +63,7 @@ def connect():
 @socketio.on('logout')
 def logout():
    session.pop('username', None)
+   
    g.pop('user', None)
   
 
@@ -75,7 +76,7 @@ def receive_channel_name(data):
       create_channel_on_event(data)
 
    join_channel(data)
-   
+
    recreate_lists()
 
 
