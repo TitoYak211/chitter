@@ -132,6 +132,7 @@ def user_disconnected():
 
    if channel:
       leave_channel({'channel': channel})
+      
    if session.get('username'):
       users.remove(session['username'])
 
