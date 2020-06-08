@@ -24,7 +24,7 @@ def before_req():
 
 
 # Log user in
-@app.route("/", methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
    if g.user:
          return render_template('index.html')
