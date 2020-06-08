@@ -81,14 +81,14 @@ def receive_channel_name(data):
 @socketio.on('new message')
 def new_message(data):
     timestamp = datetime.datetime.now().strftime('%H:%M:%S')
-    msg = {
+    message = {
       'username': session['username'],
       'color': session['color'],
       'timestamp': timestamp,
       'message': data['message']
       }
     
-    add_msg(session['current_channel'], msg)
+    add_message(session['current_channel'], message)
     
     recreate_lists()
 
@@ -98,7 +98,7 @@ def create_channel_on_event(data):
    name = data['channel']
 
    create_channel(name)
-   
+
    recreate_lists()
       
 
