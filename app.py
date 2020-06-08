@@ -30,7 +30,7 @@ def index():
    if g.user:
           return render_template('index.html')
    
-   return render_template('login.html')
+   return render_template('signup.html')
    
 
 @app.route('/login', methods=['GET', 'POST'])
