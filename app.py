@@ -75,6 +75,7 @@ def receive_channel_name(data):
       create_channel_on_event(data)
 
    join_channel(data)
+   
    recreate_lists()
 
 
