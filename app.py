@@ -13,7 +13,7 @@ channels = {}
 
 # Application initialization
 app = Flask(__name__)
-app.config["SECRET_KEY"] = 'secret!'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 socketio = SocketIO(app)
 
 
