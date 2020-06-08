@@ -69,7 +69,6 @@ def logout():
 
 @socketio.on('receive channel name')
 def receive_channel_name(data):
-   
    session['current_channel'] = data['channel']
 
    if data['channel'] not in channels.keys():
@@ -119,7 +118,7 @@ def join_channel(data):
       join_room(newchannel)
       
       message = message_from_server(f'user {username} joined {channel}')
-      
+
       add_message(newchannel, message)
       
       recreate_lists()
