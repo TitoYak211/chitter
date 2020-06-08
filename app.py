@@ -96,7 +96,9 @@ def new_message(data):
 @socketio.on('new channel')
 def create_channel_on_event(data):
    name = data['channel']
+
    create_channel(name)
+   
    recreate_lists()
       
 
