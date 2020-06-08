@@ -171,13 +171,13 @@ def recreate_lists():
 
 def message_from_server(text):
    timestamp = datetime.datetime.now().strftime('%H:%M:%S')
-   msg = {
+   message = {
       'username': 'Server', 
       'timestamp': timestamp, 
       'message': text
       }
    
-   return msg
+   return message
 
 
 if __name__ == "__main__":
