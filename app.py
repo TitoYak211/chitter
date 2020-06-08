@@ -157,6 +157,7 @@ def create_channel(name):
       return False
 
 
+# Keep lists upto date
 def recreate_lists():
    channel_list = list(channels.keys())
    messages = channels[session['current_channel']]['messages']
