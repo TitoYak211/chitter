@@ -62,7 +62,7 @@ def signup():
          return redirect(url_for('index'))
 
    # POST request
-    else:
+   else:
       username = request.form.get('username')
 
       password = request.form.get('password')
