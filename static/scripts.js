@@ -1,114 +1,144 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const channelList = document.querySelector('#channels');
-    const msglist = document.querySelector('#messages');
+    const messageList = document.querySelector('#messages');
     const userList = document.querySelector('#users');
-    const sendbtn = document.querySelector('#send');
-    const createChannelBtn = document.querySelector('#create-channel');
-    const changeUsernameBtn = document.querySelector('#change-username');
+    const sendButton = document.querySelector('#send');
+    const createChannelButton = document.querySelector('#create-channel');
+    const changeUsernameButton = document.querySelector('#change-username');
+    const messageContainer = document.querySelector('#messages-container');
     
+    // Connect to websocket
     const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});
 
-    const appendMessage =  (list, msg) => {
+    const appendMessage = (lst, message) => {
+        // Create message box
         const li = document.createElement('li');
-        li.innerHTML = `<span>${msg.timestamp}</span>  <span style="color:${msg.color}; font-weight:bold">${msg.username}</span>: ${msg.message}`
-        list.append(li);
-        scrollMessageContainerToBottom();
+
+        li.innerHTML = `<span>${message.timestamp}</span>  <span style="color:${message.color}; font-weight:bold">${message.username}</span>: ${message.message}`;
+
+        // Add message to the list
+        lst.append(li);
+
+        // Auto scroll to see most recent message
+        scrollToBottom();
     }
 
-    const scrollMessageContainerToBottom = () => {
-        msgContainer = document.querySelector('#messages-container');
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+    // Auto scroll function
+    const scrollToBottom = () => {
+        messageContainer.scrollTop = messageContainer.scrollHeight;
     }
 
-    const recreateMsgList = messages => {
-        msglist.innerHTML = '';
-        messages.forEach(msg => {
-            appendMessage(msglist, msg)
+    // Recreate message list per session
+    const recreateMessageList = messages => {
+        messageList.innerHTML = '';
+
+        messages.forEach(message => {
+            appendMessage(messageList, message)
         });
     }
 
-    const appendChannel = (list, channel) => {
+    const appendChannel = (lst, channel) => {
         const li = document.createElement('li');
+
         let isActiveLink = '';
+
         if (channel == currentChannel) {
             isActiveLink = 'link-active';
         };
+
         li.innerHTML = `<a href='#' class="link-channel ${isActiveLink}">${channel}</a>`;
-        list.append(li);
+
+        lst.append(li);
     }
 
+    // Recreate channel list per session
     const recreateChannelList = channels => {
         channelList.innerHTML = '';
+
         channels.forEach(channel => {
             appendChannel(channelList, channel);
         });
+
         updateChannelLinkListeners();
     }
 
     const updateChannelLinkListeners = function() {
         const channelLinks = document.querySelectorAll('.link-channel');
+
         channelLinks.forEach(link => {
             const newChannel = link.innerHTML;
+
             link.addEventListener('click', () => {
                 switchChannel(currentChannel, newChannel);
             });
         });
     };
     
+    // Changing current channel
     const switchChannel = (currentChannel, newChannel) => {
-        
         if (newChannel != currentChannel) {
             leaveChannel(currentChannel);
-            joinChannel(newChannel);
-            console.log(`new channel is ${newChannel}`);            
+
+            joinChannel(newChannel);      
         };             
     };
 
+    // Joining a channel
     const joinChannel = (newChannel) => {
-        socket.emit('join channel', {'channel': newChannel});
-        console.log(`joining channel ${newChannel}`);
+        socket.emit('join channel', { 'channel': newChannel });
+
         currentChannel = newChannel;
     }
 
+    // Leaving a channel
     const leaveChannel = (currentChannel) => {
         socket.emit('leave channel', {'channel': currentChannel});
     }
 
+    // Create a new channel
     const createChannel = () => {
         const channel = getChannelFromPrompt();
+
         socket.emit('new channel', {'channel': channel});
     }
 
     const getChannelFromPrompt = () => {
         const channel = prompt('Enter new channel name:');
+
         return channel;
     }
 
+    // Recreate user list per session
     const recreateUserList = users => {
         userList.innerHTML = '';
+
         users.forEach(user => {
             appendUser(userList, user);
         });
     }
 
-    const appendUser = (list, user) => {
+    const appendUser = (lst, user) => {
         const li = document.createElement('li');
+
         li.innerHTML = `<a href='#' class="link-user">🧑‍💻${user}</a>`;
-        list.append(li);
+
+        lst.append(li);
     }
 
     const changeUsername = () => {
         socket.emit('logout');
+
         window.location.replace('/login');
     }
 
-    const addNewMessage = function(event) {
-        if (event) {
-            event.preventDefault();
+    const addNewMessage = e => {
+        if (e) {
+            e.preventDefault();
         }
         
         const message = document.querySelector('#m').value;
+
         if (message != '') {
             socket.emit('new message', {'message': message});       
             
@@ -118,11 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return false;
     };
 
-    window.addEventListener('beforeunload', () => {
-        socket.disconnect();
-    });
-
-    sendbtn.addEventListener('click', addNewMessage);
+    sendButton.addEventListener('click', addNewMessage);
 
     window.addEventListener('keydown', e => {
         if (e.keyCode == 13) {
@@ -130,30 +156,25 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     });
 
-    createChannelBtn.addEventListener('click', createChannel);
+    createChannelButton.addEventListener('click', createChannel);
     
-    changeUsernameBtn.addEventListener('click', changeUsername);
+    changeUsernameButton.addEventListener('click', changeUsername);
 
     socket.on('get channel name',  () => {
-
         if (!localStorage.getItem('current_channel')) {
             localStorage.setItem('current_channel', 'global');
         };
+
         currentChannel = localStorage.getItem('current_channel');
+        
         socket.emit('receive channel name', {'channel': currentChannel});
     });
 
-    // socket.on('disconnect', () => {
-    //     localStorage.setItem('current_channel', currentChannel);
-    // });
-
-    // socket.on('reconnect',  () => {
-    //     console.log('successfully reconnected!');      
-    // });
-
     socket.on('recreate lists', data => {
         recreateChannelList(data['channels']);
-        recreateMsgList(data['messages']);
+
+        recreateMessageList(data['messages']);
+        
         recreateUserList(data['users']);
     });
 
@@ -162,3 +183,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     
 });
+
