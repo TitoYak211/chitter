@@ -148,6 +148,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return false;
     };
 
+    window.addEventListener('beforeunload', () => {
+        socket.disconnect();
+    });
+
     sendButton.addEventListener('click', addNewMessage);
 
     window.addEventListener('keydown', e => {
