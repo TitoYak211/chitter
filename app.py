@@ -14,7 +14,7 @@ channels = {}
 
 # Application initialization
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = 'secret'
 socketio = SocketIO(app)
 
 
@@ -30,7 +30,7 @@ def index():
    if g.user:
           return render_template('index.html')
    
-   return render_template('signup.html')
+   return render_template('login.html')
    
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -49,52 +49,11 @@ def login():
    
    return render_template('login.html')
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-   error = None
-
-   # GET request
-   if request.method == 'GET':
-      if not session.get('username'):
-         return render_template('signup.html')
-
-      else:
-         return redirect(url_for('index'))
-
-   # POST request
-   else:
-      username = request.form.get('username')
-
-      password = request.form.get('password')
-
-      confirm_password = request.form.get('confirm-password')
-
-      # Validate username
-      if not re.search(r'^[A-Za-z0-9_-]+$', username):
-         error = 'Oh uh, username must only contains: alphabets, numbers, underscore and/or hyphen'
-
-         return render_template('signup.html', error = error)
-
-      if username not in users:
-         if password == confirm_password:
-            users.append(username)
-
-            session['username'] = username
-
-            return redirect(url_for('index'))
-
-         else:
-            error = 'Oh uh, passwords do not match'
-
-            return render_template('signup.html', error = error)
-      else:
-         error = 'Oh uh, this username is taken'
-
-         return render_template('signup.html', error = error)
 
 @socketio.on('connect')
 def connect():
    username = session['username']
+   
    if username not in users:
       users.append(username)
    
