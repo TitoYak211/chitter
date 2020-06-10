@@ -170,6 +170,14 @@ document.addEventListener('DOMContentLoaded', function () {
         socket.emit('receive channel name', {'channel': currentChannel});
     });
 
+    socket.on('disconnect', () => {
+        localStorage.setItem('current_channel', currentChannel);
+    });
+
+    socket.on('reconnect',  () => {
+        localStorage.setItem('current_channel', currentChannel);      
+    });
+
     socket.on('recreate lists', data => {
         recreateChannelList(data['channels']);
 
