@@ -159,7 +159,7 @@ def add_message(channel, message):
    channels[channel]['messages'].append(message)
 
    if len(channels[channel]['messages']) > message_capacity:
-      channels[channel]['messages'] = channels[channel]['messages'][-msg_capacity:]
+      channels[channel]['messages'] = channels[channel]['messages'][-message_capacity:]
 
 
 # Create new channel
