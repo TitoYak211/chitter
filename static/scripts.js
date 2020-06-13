@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageContainer = document.querySelector('#messages-container');
     
     // Connect to websocket
-    const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port, {transports: ['websocket']});
 
     const appendMessage = (lst, message) => {
         // Create message box
