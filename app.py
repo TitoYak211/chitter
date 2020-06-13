@@ -36,7 +36,6 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
    if request.method == 'POST':
-
       username = request.form['username']
 
       session['username'] = username
@@ -85,6 +84,7 @@ def receive_channel_name(data):
 @socketio.on('new message')
 def new_message(data):
     timestamp = datetime.datetime.now().strftime('%H:%M:%S')
+
     message = {
       'username': session['username'],
       'color': session['color'],
@@ -104,14 +104,13 @@ def create_channel_on_event(data):
    create_channel(name)
 
    recreate_lists()
-      
+    
 
 @socketio.on('join channel')
 def join_channel(data):
    newchannel = data['channel']
 
    if newchannel != session['current_channel']:
-
       username = session['username']
 
       session['current_channel'] = newchannel
@@ -120,7 +119,7 @@ def join_channel(data):
    
       join_room(newchannel)
       
-      message = message_from_server(f'user {username} joined {channel}')
+      message = message_from_server(f'User {username} joined {channel}')
 
       add_message(newchannel, message)
       
@@ -129,13 +128,13 @@ def join_channel(data):
 
 @socketio.on('leave channel')
 def leave_channel(data):
-   username = session['username']
+   # username = session['username']
 
    channel = data['channel']
 
-   message = message_from_server(f'User {username} left {channel}')
+   # message = message_from_server(f'User {username} left {channel}')
 
-   add_message(channel, message)
+   # add_message(channel, message)
 
    leave_room(channel)
 
@@ -179,7 +178,9 @@ def create_channel(name):
 # Keep lists upto date
 def recreate_lists():
    channel_list = list(channels.keys())
+
    messages = channels[session['current_channel']]['messages']
+
    socketio.emit(
       'recreate lists', 
       {
@@ -191,6 +192,7 @@ def recreate_lists():
 
 def message_from_server(text):
    timestamp = datetime.datetime.now().strftime('%H:%M:%S')
+   
    message = {
       'username': 'Server', 
       'timestamp': timestamp, 
