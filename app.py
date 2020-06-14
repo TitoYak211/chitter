@@ -115,7 +115,7 @@ def join_channel(data):
 
       session['current_channel'] = newchannel
 
-      channels[channel]['users'].append(session['username'])
+      channels[channel]['users'].append(username)
    
       join_room(newchannel)
       
@@ -132,7 +132,7 @@ def leave_channel(data):
 
    channel = data['channel']
 
-   message = message_from_server(f'User {username} left {channel}')
+   message = message_from_server(f'User {username} left {channel} 😔')
 
    add_message(channel, message)
 
@@ -162,13 +162,13 @@ def add_message(channel, message):
 
 
 # Create new channel
-def create_channel(name):
-   if name not in list(channels.keys()):
-      channels[name] = {'messages': [], 'users': []}
+def create_channel(channel):
+   if channel not in list(channels.keys()):
+      channels[channel] = {'messages': [], 'users': []}
 
       return True   
    else:
-      message = message_from_server(f'{name} channel exists!')
+      message = message_from_server(f'Uh oh! {channel} channel exists 😢 🤯')
 
       add_message(session['current_channel'], message)
 
