@@ -28,7 +28,7 @@ def before_req():
 @app.route('/', methods=['GET', 'POST'])
 def index():
    if g.user:
-          return render_template('index.html')
+      return render_template('index.html')
    
    return render_template('login.html')
    
@@ -38,6 +38,9 @@ def login():
    if request.method == 'POST':
       username = request.form['username']
 
+      if username == ' ' or username == '':
+         return render_template('login.html')
+             
       session['username'] = username
 
       session['color'] = "#%06x" % random.randint(0, 0xFFFFFF)
