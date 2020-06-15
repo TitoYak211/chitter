@@ -89,7 +89,7 @@ def new_message(data):
     timestamp = datetime.datetime.now().strftime('%H:%M:%S')
 
     message = {
-      'username': session['username'],
+      'username': session['username'].capitalize(),
       'color': session['color'],
       'timestamp': timestamp,
       'message': data['message']
@@ -122,7 +122,7 @@ def join_channel(data):
    
       join_room(newchannel)
       
-      message = message_from_server(f'User {username} joined {channel}')
+      message = message_from_server(f'User {username.capitalize()} joined {channel.capitalize()}')
 
       add_message(newchannel, message)
       
@@ -135,7 +135,7 @@ def leave_channel(data):
 
    channel = data['channel']
 
-   message = message_from_server(f'User {username} left {channel} 😔')
+   message = message_from_server(f'User {username.capitalize()} left {channel.capitalize()} 😔')
 
    add_message(channel, message)
 
